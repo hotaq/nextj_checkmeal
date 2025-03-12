@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import grain from '@/public/image/download.jpeg'
+import { EdgeStoreProvider } from "@/lib/edgestore";
+
+import { BackgroundBeamsDemo } from "@/component/ui/BackgroundBeamsDemo";
+import Header from "@/component/ui/Header";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -23,15 +27,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="bg-gray-900 text-white w-[1902px] h-[1000px]">
+    <html lang="en" className="bg-black text-white">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased text-black-100`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased text-black-100 w-full overflow-x-hidden`}
       > 
-      <div className='absolute inset-0 -z-30 opacity-100' style={{
-            backgroundImage: `url(${grain.src})`,
-        }}>
+        <Header  />
+        <EdgeStoreProvider>
           {children}
-        </div>
+        </EdgeStoreProvider>
       </body>
     </html>
   );
